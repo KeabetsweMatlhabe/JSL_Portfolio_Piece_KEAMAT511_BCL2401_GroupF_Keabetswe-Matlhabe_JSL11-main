@@ -26,8 +26,9 @@ const elements = {
   sideBar : document.querySelector(".side-bar"),
   sideLogoDiv : document.getElementById("side-logo-div"),
   boardsNavLinksDiv : document.getElementById("headline-sidepanel"),
-  hideSideBarDiv : document.getElementById("hide-side-bar-div"),
+  hideSideBarBtn : document.getElementById("hide-side-bar-btn"),
   showSideBarBtn : document.getElementById("show-side-bar-btn"),
+  themeSwitch :document.getElementById("switch"),
 
   //Main Layout
   addNewTaskBtn : document.getElementById("add-new-task-btn"),
@@ -38,6 +39,26 @@ const elements = {
   //task columns
   columnDiv : document.querySelectorAll(".column-div"),
   tasksContainer : document.querySelectorAll(".tasks-container"),
+
+  //new Task Modal
+  modalWindow : document.getElementById("new-task-modal-window"),
+  titleInput : document.getElementById("title-inpu"),
+  textarea : document.getElementById("desc-input"),
+  createNewTaskBtn : document.getElementById("add-new-task-btn"),
+  cancelAddTaskBtn : document.getElementById("cancel-add-task-btn"),
+  inputDiv : document.getElementById("modal-select-status"),
+
+  //Edit Task modal
+  modalWindow : document.querySelector(".edit-task-modal-window"),
+  editTaskForm : document.getElementById("edit-task-form"),
+  editTaskFormInput : document.getElementById("edit-task-desc-input"),
+  saveTaskChangesBtn : document.getElementById("save-task-changes-btn"),
+  cancelEditBtn : document.getElementById("cancel-edit-btn"),
+  deleteTaskBtn : document.getElementById("delete-task-btn"),
+  filterDiv : document.getElementById("filterDiv"),
+  
+
+
  
 
 }
@@ -84,7 +105,7 @@ function displayBoards(boards) {
 // TASK: Fix Bugs
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
-  const filteredTasks = tasks.filter(task => task.board = boardName);
+  const filteredTasks = tasks.filter(task => task.board === boardName);
 
   // Ensure the column titles are set outside of this function or correctly initialized before this function runs
 
@@ -123,13 +144,13 @@ function refreshTasksUI() {
 // Styles the active board by adding an active class
 // TASK: Fix Bugs
 function styleActiveBoard(boardName) {
-  document.querySelectorAll('.board-btn').foreach(btn => { 
+  document.querySelectorAll('.board-btn').forEach(btn => { 
     
     if(btn.textContent === boardName) {
-      btn.add('active') 
+      btn.classList.add('active') 
     }
     else {
-      btn.remove('active'); 
+      btn.classList.remove('active'); 
     }
   });
 }
@@ -155,7 +176,7 @@ function addTaskToUI(task) {
   taskElement.textContent = task.title; // Modify as needed
   taskElement.setAttribute('data-task-id', task.id);
   
-  tasksContainer.appendChild(); 
+  tasksContainer.appendChild(taskElement); 
 }
 
 
@@ -163,7 +184,7 @@ function addTaskToUI(task) {
 function setupEventListeners() {
   // Cancel editing task event listener
   const cancelEditBtn = document.getElementById('cancel-edit-btn');
-  cancelEditBtn.click() ; (toggleModal(false, elements.editTaskModal));
+  cancelEditBtn.addEventListener('click', () => toggleModal(false, elements.editTaskModal));
 
   // Cancel adding new task event listener
   const cancelAddTaskBtn = document.getElementById('cancel-add-task-btn');
@@ -179,8 +200,10 @@ function setupEventListeners() {
   });
 
   // Show sidebar event listener
-  elements.hideSideBarBtn.addEventListener(click ,() => toggleSidebar(false));
-  elements.showSideBarBtn.addEventListener(click ,() => toggleSidebar(true));
+  elements.hideSideBarBtn.addEventListener('click', () => toggleSidebar(false));
+  elements.showSideBarBtn.addEventListener('click', () => toggleSidebar(true));
+
+  // elements.showSideBarBtn.style.display = "block";
 
   // Theme switch event listener
   elements.themeSwitch.addEventListener('change', toggleTheme);
@@ -226,10 +249,18 @@ function addTask(event) {
 
 
 function toggleSidebar(show) {
+  if(show){
+    elements.showSideBarBtn.style.display = 'none';
+    elements.sideBar.style.display = 'block';
+  } else{
+    elements.showSideBarBtn.style.display = 'block'
+    elements.sideBar.style.display = 'none';
+  }
  
 }
 
 function toggleTheme() {
+  document.body.classList.toggle('light-theme');
  
 }
 
