@@ -19,13 +19,26 @@ function initializeData() {
 }
 
 // TASK: Get elements from the DOM
-const elements = {
+
+const elements = { 
+//Sidebar
   headerBoardName : document.getElementById("header-board-name"),
-  sideBar : document.querySelector("side-bar"),
+  sideBar : document.querySelector(".side-bar"),
   sideLogoDiv : document.getElementById("side-logo-div"),
   boardsNavLinksDiv : document.getElementById("headline-sidepanel"),
   hideSideBarDiv : document.getElementById("hide-side-bar-div"),
   showSideBarBtn : document.getElementById("show-side-bar-btn"),
+
+  //Main Layout
+  addNewTaskBtn : document.getElementById("add-new-task-btn"),
+  editBtn : document.getElementById("edit-board-btn"),
+  dropDownBtn : document.getElementById("dropdownBtn"),
+  editBtns : document.getElementById("deleteBoardBtn"),
+
+  //task columns
+  columnDiv : document.querySelectorAll(".column-div"),
+  tasksContainer : document.querySelectorAll(".tasks-container"),
+ 
 
 }
 
