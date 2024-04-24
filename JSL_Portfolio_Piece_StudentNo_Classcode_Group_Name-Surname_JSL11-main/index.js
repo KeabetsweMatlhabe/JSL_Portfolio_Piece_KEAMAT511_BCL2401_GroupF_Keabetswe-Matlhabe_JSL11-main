@@ -3,20 +3,22 @@
 
 import { getTasks, patchTask, deleteTask, createNewTask, putTask} from "./utils/taskFunctions.js";
 import {initialData} from "./initialData.js";
-
+ 
 /*************************************************************************************************************************************************
  * FIX BUGS!!!
  * **********************************************************************************************************************************************/
 
 // Function checks if local storage already has data, if not it loads initialData to localStorage
 function initializeData() {
-  if (!localStorage.getItem('tasks')) {
-    localStorage.setItem('tasks', JSON.stringify(initialData)); 
-    localStorage.setItem('showSideBar', 'true')
+  if (!localStorage.getItem('tasks')) { // Check if 'tasks' key exists in local storage
+    localStorage.setItem('tasks', JSON.stringify(initialData));// If 'tasks' key doesn't exist, initialize it with initialData 
+    localStorage.setItem('showSideBar', 'true') // Also set 'showSideBar' key to 'true'
   } else {
-    console.log('Data already exists in localStorage');
+    console.log('Data already exists in localStorage'); // If 'tasks' key already exists, log a message
   }
 }
+
+
 
 // TASK: Get elements from the DOM
 
@@ -37,7 +39,7 @@ const elements = {
   editBtns : document.getElementById("deleteBoardBtn"),
 
   //task columns
-  columnDiv : document.querySelectorAll(".column-div"),
+  columnDivs : document.querySelectorAll(".column-div"),
   tasksContainer : document.querySelectorAll(".tasks-container"),
 
   //new Task Modal
@@ -127,7 +129,7 @@ function filterAndDisplayTasksByBoard(boardName) {
       taskElement.setAttribute('data-task-id', task.id);
 
       // Listen for a click event on each task and open a modal
-      taskElement.addEventListener(click ,() => { 
+      taskElement.addEventListener('click' ,() => { 
         openEditTaskModal(task);
       });
 
@@ -249,10 +251,13 @@ function addTask(event) {
 
 
 function toggleSidebar(show) {
+  // Check if 'show' parameter is true
   if(show){
+    // If true, hide the 'showSideBarBtn' and display the sidebar
     elements.showSideBarBtn.style.display = 'none';
     elements.sideBar.style.display = 'block';
   } else{
+    // If false, display the 'showSideBarBtn' and hide the sidebar
     elements.showSideBarBtn.style.display = 'block'
     elements.sideBar.style.display = 'none';
   }
@@ -278,6 +283,7 @@ function openEditTaskModal(task) {
 
   // Call saveTaskChanges upon click of Save Changes button
  saveButton.addEventListener ('click' , ()=> {
+  saveButton(task.id);
 
  });
 
@@ -309,6 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function init() {
+  initializeData();
   setupEventListeners();
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);
