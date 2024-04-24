@@ -237,6 +237,11 @@ function addTask(event) {
 
   //Assign user input to the task object
     const task = {
+      'id': task_id,
+      'title': titleInput,
+      'description': descriptionInput,
+      'status': selectStatus,
+      'board': activeBoard,
       
     };
     const newTask = createNewTask(task);
