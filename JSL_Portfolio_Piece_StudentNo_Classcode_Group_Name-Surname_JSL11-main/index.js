@@ -236,6 +236,12 @@ function addTask(event) {
   event.preventDefault(); 
 
   //Assign user input to the task object
+  const task_id = JSON.parse(localStorage.getItem('id'));
+  const titleInput = elements.titleInput.value;
+  const descriptionInput = elements.descInput.value;
+  const selectStatus = elements.selectStatus.value;
+
+
     const task = {
       'id': task_id,
       'title': titleInput,
